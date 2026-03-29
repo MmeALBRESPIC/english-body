@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Flashcards anglais - corps humain</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>English body flashcards</title>
   <style>
     :root{
       --bg:#f4f7fb;
       --card:#ffffff;
+      --border:#dbe4f0;
+      --blue:#2563eb;
       --text:#1f2937;
-      --accent:#2563eb;
-      --soft:#dbe4f0;
     }
     *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
     body{
@@ -22,32 +22,19 @@
       display:flex;
       align-items:center;
       justify-content:center;
-      padding:16px;
+      padding:14px;
     }
-    .app{
-      width:min(100%, 520px);
-    }
+    .app{ width:min(100%, 520px); }
     .panel{
       background:var(--card);
       border-radius:24px;
       box-shadow:0 12px 30px rgba(0,0,0,.08);
-      padding:18px;
+      padding:16px;
     }
-    h1{
-      margin:0 0 8px;
-      text-align:center;
-      font-size:1.6rem;
-    }
-    .sub{
-      margin:0 0 16px;
-      text-align:center;
-      color:#4b5563;
-      font-size:.98rem;
-    }
-    .counter{
+    .top{
       display:flex;
       justify-content:center;
-      margin-bottom:14px;
+      margin-bottom:12px;
     }
     .badge{
       background:#eff6ff;
@@ -55,36 +42,26 @@
       padding:8px 14px;
       border-radius:999px;
       font-weight:700;
-      font-size:.95rem;
+      font-size:1rem;
     }
     .card{
-      border:none;
       width:100%;
-      min-height:360px;
-      border-radius:28px;
-      background:linear-gradient(180deg, #ffffff, #f8fbff);
-      border:3px solid var(--soft);
-      cursor:pointer;
+      min-height:430px;
+      border:none;
+      border-radius:26px;
+      background:white;
+      border:3px solid var(--border);
       display:flex;
-      flex-direction:column;
       align-items:center;
       justify-content:center;
-      gap:12px;
-      padding:20px;
+      padding:12px;
+      cursor:pointer;
     }
-    .emoji{
-      font-size:5.5rem;
-      line-height:1;
-    }
-    .word{
-      font-size:2rem;
-      font-weight:700;
-      text-align:center;
-    }
-    .hint{
-      font-size:1rem;
-      color:#6b7280;
-      text-align:center;
+    .card img{
+      max-width:100%;
+      max-height:390px;
+      object-fit:contain;
+      border-radius:20px;
     }
     .controls{
       display:grid;
@@ -96,26 +73,25 @@
       border:none;
       border-radius:18px;
       padding:14px 10px;
-      font-size:1.1rem;
+      font-size:1.15rem;
       font-weight:700;
       cursor:pointer;
       background:#eef2ff;
       color:#1e3a8a;
     }
     button.primary{
-      background:var(--accent);
+      background:var(--blue);
       color:white;
     }
-    .small{
+    .tiny{
       text-align:center;
       font-size:.92rem;
       color:#6b7280;
       margin-top:12px;
     }
     @media (max-width:420px){
-      .card{min-height:320px}
-      .emoji{font-size:4.7rem}
-      .word{font-size:1.7rem}
+      .card{min-height:360px}
+      .card img{max-height:320px}
       .controls{grid-template-columns:1fr}
     }
   </style>
@@ -123,17 +99,12 @@
 <body>
   <div class="app">
     <div class="panel">
-      <h1>Flashcards anglais</h1>
-      <p class="sub">Touchez la carte pour écouter le mot.</p>
-
-      <div class="counter">
+      <div class="top">
         <div class="badge"><span id="index">1</span> / <span id="total">11</span></div>
       </div>
 
-      <button class="card" id="flashcard" onclick="speakCurrent()">
-        <div class="emoji" id="emoji">🧑</div>
-        <div class="word" id="word">head</div>
-        <div class="hint">Touchez pour écouter 🔊</div>
+      <button class="card" onclick="speakCurrent()" aria-label="écouter">
+        <img id="photo" src="head.png" alt="flashcard">
       </button>
 
       <div class="controls">
@@ -142,30 +113,29 @@
         <button class="ctrl" onclick="nextCard()">➡️</button>
       </div>
 
-      <div class="small">Mots : head, eyes, ears, nose, mouth, hair, arm, hand, fingers, leg, foot.</div>
+      <div class="tiny">Touchez l'image pour écouter.</div>
     </div>
   </div>
 
   <script>
     const cards = [
-      { word: "head", emoji: "🧑" },
-      { word: "eyes", emoji: "👀" },
-      { word: "ears", emoji: "👂" },
-      { word: "nose", emoji: "👃" },
-      { word: "mouth", emoji: "👄" },
-      { word: "hair", emoji: "💇" },
-      { word: "arm", emoji: "💪" },
-      { word: "hand", emoji: "✋" },
-      { word: "fingers", emoji: "🖐️" },
-      { word: "leg", emoji: "🦵" },
-      { word: "foot", emoji: "🦶" }
+      { word: "ear", image: "ear.png" },
+      { word: "foot", image: "foot.png" },
+      { word: "hair", image: "hair.png" },
+      { word: "hand", image: "hand.png" },
+      { word: "head", image: "head.png" },
+      { word: "leg", image: "leg.png" },
+      { word: "mouth", image: "mouth.png" },
+      { word: "neck", image: "neck.png" },
+      { word: "nose", image: "nose.png" },
+      { word: "teeth", image: "teeth.png" },
+      { word: "tongue", image: "tongue.png" }
     ];
 
     let current = 0;
 
     function renderCard() {
-      document.getElementById("emoji").textContent = cards[current].emoji;
-      document.getElementById("word").textContent = cards[current].word;
+      document.getElementById("photo").src = cards[current].image;
       document.getElementById("index").textContent = current + 1;
       document.getElementById("total").textContent = cards.length;
     }
